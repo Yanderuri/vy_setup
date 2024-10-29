@@ -36,7 +36,6 @@ set $menu fuzzel -b fdf6e3b0
 output eDP-1 {
 	resolution 2256x1504@60Hz
 	scale 1.0
-	position 0,1504
 	adaptive_sync on
 	bg "~/Pictures/Misc/1fn20h055d2c1.png" fill
 }
@@ -45,18 +44,20 @@ output eDP-1 {
 output "LG Electronics 27GL850 006NTTQJT081" {
 	resolution 2560x1440@75Hz
 	scale 1.0
-	position 0,0
 	adaptive_sync on
 	bg "~/Pictures/Misc/j979l2gwdy8d1.jpeg" fill
 }
 
+
+output "Dell Inc. DELL U2913WM 5YD8C438121L" {
+	resolution 2560x1080@60Hz
+	scale 1.0
+}
+
+
 # Maybe I'm confused
 # But the y-coordinates seem to be inverted
 # Larger number go down
-
-workspace 1 output DP-4
-workspace 2 output eDP-1
-workspace * output eDP-1
 
 ### Idle configuration
 #
@@ -95,9 +96,11 @@ input type:keyboard {
 	xkb_options "caps:escape, shift:both_capslock"
 }
 
-input DP-4 {
-	xkb_layout "us"
+input "12972:6:FRMW0001:00_32AC:006" {
+	xkb_layout "us, kr"
 	xkb_variant ""
+	xkb_options "korean:rctrl_hangul"
+	xkb_options "caps:escape"
 }
 
 ### Key bindings
@@ -124,10 +127,10 @@ input DP-4 {
     bindsym $mod+Shift+c reload
 
 # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-mute \
     @DEFAULT_SINK@ off && pactl set-sink-volume @DEFAULT_SINK@ +5%
 
@@ -139,8 +142,9 @@ input DP-4 {
     bindsym --locked XF86AudioNext exec playerctl next
     bindsym --locked XF86AudioPrev exec playerctl previous
 
-
     bindsym $mod+a+l exec swaylock -i ~/Pictures/Misc/gwkk7yhl249d1\.png -s fill --ignore-empty-password
+    # bindsym $mod+Mod1+Space input "12972:6:FRMW0001:00_32AC:0006" xkb_switch_layout next
+
 #
 # Moving around:
 #

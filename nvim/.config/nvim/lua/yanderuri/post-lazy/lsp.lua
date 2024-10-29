@@ -15,14 +15,12 @@ require("mason-lspconfig").setup_handlers{
 		require('lspconfig')[server_name].setup({})
 	end,
 }
-
-
 -- Autocomplete sources
 local cmp = require('cmp')
 -- https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources
 cmp.setup({
 	sources = {
-		{name = 'nvim_lsp'},
+		-- {name = 'nvim_lsp'},
 		{
 			name = 'ctags',
 			option = {
@@ -31,7 +29,7 @@ cmp.setup({
 				trigger_characters_ft = { c = {".", "->"}},
 			}
 		},
-		{name = 'luasnip'},
+		-- {name = 'luasnip'},
 		{name = "buffer"},
 	},
 	mapping = cmp.mapping.preset.insert({
